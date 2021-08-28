@@ -1,53 +1,35 @@
-# Industry---Casualty-Challenge
-casuality
+## Causal_inference
+This project focuses on implementing techniques used to perform causal inference to the Wisconsin cancer dataset.
 
-Features are computed from a digitized image of a fine needle aspirate (FNA) of a breast mass. They describe characteristics of the cell nuclei present in the image.
-n the 3-dimensional space is that described in: [K. P. Bennett and O. L. Mangasarian: "Robust Linear Programming Discrimination of Two Linearly Inseparable Sets", Optimization Methods and Software 1, 1992, 23-34].
+Scripts used in the project are stored under the scripts folder while notebooks are stored under the notebooks folder, apart from the "test" script.
 
-This database is also available through the UW CS ftp server:
-ftp ftp.cs.wisc.edu
-cd math-prog/cpo-dataset/machine-learn/WDBC/
+The causal_inference "notebook" and "causal" script brings all the concepts dicussed below into one
 
-Also can be found on UCI Machine Learning Repository: https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Diagnostic%29
+## The Model and Results
+The project begins with exploring the observed data, to derive the relationships that can seen from the data collected. 
+The correlation matrix is plotted to identify the bivariate relationship between the variables.
 
-Attribute Information:
+Feature selection is done to reduce the dimensionality of the graph using the "feature_selection" script. The random forest classification model is used to extract the most important features.
 
-1) ID number
-2) Diagnosis (M = malignant, B = benign)
-3-32)
+The relationships under causal inference are also explored by using python libraries and knowledge of the relationship between radius, perimeter and area to plot directed acrylic graphs(DAGs).
 
-Ten real-valued features are computed for each cell nucleus:
+The variables that directly cause the outcome variable as seen from the causal graph are retained in the dataset for training and
+prediction. The script used for constructing the graph is the "causal_graph" script. The stability of the relationships between the independent variable in the graph is checked using Jaccard's similarity index.
 
-a) radius (mean of distances from center to points on the perimeter)
+The resulting graph from this analysis is shown at the end of this requirements.txt
 
-b) texture (standard deviation of gray-scale values)
+The Bayesian network, fitted using the "training" script. The network train on discretized data, the data is discretized using the "discretizing" script. The network learns the condition probabilities of the nodes of the graph and uses this for prediction.
+The Bayesian network achieves the metrics below.
 
-c) perimeter
+Recall: 0.87
 
-d) area
+Accuracy: 0.95 
 
-e) smoothness (local variation in radius lengths)
+Precision: 0.97 
 
-f) compactness (perimeter^2 / area - 1.0)
+## Tests
+The tests are conducted on the data via Travis CI using "test" script which can be found under the tests folder, while the models are monitored using Github workflows.
 
-g) concavity (severity of concave portions of the contour)
+## Causal Graph
+![causal7](https://user-images.githubusercontent.com/12167288/131225158-40a3f2cd-8293-4c29-a74d-f03f42ab0126.png)
 
-h) concave points (number of concave portions of the contour)
-
-i) symmetry
-
-j) fractal dimension ("coastline approximation" - 1)
-
-
-The mean, standard error and "worst" or largest (mean of the three
-
-largest values) of these features were computed for each image,
-resulting in 30 features. For instance, field 3 is Mean Radius, field
-
-13 is Radius SE, field 23 is Worst Radius.
-
-All feature values are recoded with four significant digits.
-
-Missing attribute values: none
-
-Class distribution: 357 benign, 212 malignant
